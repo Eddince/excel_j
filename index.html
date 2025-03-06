@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir Excel a JSON</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Subir Archivo Excel</h1>
+        <form id="uploadForm">
+            <input type="file" id="excelFile" name="file" accept=".xlsx, .xls" required>
+            <button type="submit">Convertir y Enviar a GitHub</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
