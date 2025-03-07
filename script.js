@@ -45,7 +45,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
 
         // Configura el enlace de descarga
         downloadLink.href = url;
-        downloadLink.download = 'data.json'; // Nombre del archivo descargado
+        downloadLink.download = 'database.json'; // Nombre del archivo descargado
         downloadLink.style.display = 'block'; // Muestra el botón de descarga
     };
 

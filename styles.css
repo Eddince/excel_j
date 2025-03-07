@@ -46,3 +46,8 @@ button:hover {
     max-height: 300px; /* Altura máxima del área de salida */
     overflow-y: auto; /* Agrega scroll vertical si es necesario */
 }
+
+#downloadLink {
+    margin-top: 20px; /* Espacio encima del botón de descarga */
+    display: inline-block; /* Muestra el enlace como un bloque */
+}
