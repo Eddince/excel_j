@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convertir Excel a JSON</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Enlaza el archivo CSS -->
 </head>
 <body>
     <div class="container">
-        <h1>Subir Archivo Excel</h1>
+        <h1>Convertir Excel a JSON</h1>
+        <!-- Formulario para subir el archivo Excel -->
         <form id="uploadForm">
             <input type="file" id="excelFile" name="file" accept=".xlsx, .xls" required>
-            <button type="submit">Convertir y Enviar a GitHub</button>
+            <button type="submit">Convertir a JSON</button>
         </form>
-        <p id="message"></p>
+        <!-- Área para mostrar el JSON resultante -->
+        <pre id="jsonOutput"></pre>
     </div>
 
+    <!-- Incluye la biblioteca XLSX para leer archivos Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <!-- Incluye el archivo JavaScript con la lógica de la aplicación -->
     <script src="script.js"></script>
 </body>
 </html>

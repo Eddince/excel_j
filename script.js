@@ -1,61 +1,33 @@
-document.getElementById('uploadForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+document.getElementById('uploadForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Evita que el formulario se envíe de forma tradicional
 
-    const fileInput = document.getElementById('excelFile');
-    const message = document.getElementById('message');
+    const fileInput = document.getElementById('excelFile'); // Obtiene el input de archivo
+    const jsonOutput = document.getElementById('jsonOutput'); // Obtiene el área de salida
 
     if (fileInput.files.length === 0) {
-        message.textContent = "Por favor, selecciona un archivo.";
+        jsonOutput.textContent = "Por favor, selecciona un archivo.";
         return;
     }
 
-    const file = fileInput.files[0];
-    const reader = new FileReader();
+    const file = fileInput.files[0]; // Obtiene el archivo seleccionado
+    const reader = new FileReader(); // Crea un lector de archivos
 
-    reader.onload = async function (e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
+    // Define lo que sucede cuando el archivo se ha leído
+    reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result); // Convierte el archivo a un array de bytes
+        const workbook = XLSX.read(data, { type: 'array' }); // Lee el archivo Excel
 
-        // Suponiendo que la primera hoja es la que contiene los datos
+        // Obtiene el nombre de la primera hoja del archivo Excel
         const sheetName = workbook.SheetNames[0];
+        // Obtiene los datos de la hoja
         const worksheet = workbook.Sheets[sheetName];
+        // Convierte los datos de la hoja a JSON
         const json = XLSX.utils.sheet_to_json(worksheet);
 
-        // Enviar JSON a GitHub
-        try {
-            const githubToken = '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'; // ¡No expongas esto en producción!
-            const repoOwner = 'Eddince';
-            const repoName = 'web_exam';
-            const filePath = 'database.json';
-            const branch = 'main';
-
-            const url = `https://api.github.com/repos/${repoOwner}/${repoName}/${filePath}`;
-            const content = JSON.stringify(json, null, 4);
-            const contentBase64 = btoa(unescape(encodeURIComponent(content)));
-
-            const response = await fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                },
-                body: JSON.stringify({
-                    message: 'Actualización automática de JSON',
-                    content: contentBase64,
-                    branch: branch
-                })
-            });
-
-            if (response.ok) {
-                message.textContent = "JSON enviado correctamente a GitHub.";
-            } else {
-                const error = await response.json();
-                message.textContent = "Error: " + error.message;
-            }
-        } catch (error) {
-            message.textContent = "Error al enviar el archivo.";
-        }
+        // Muestra el JSON en el área de salida
+        jsonOutput.textContent = JSON.stringify(json, null, 4);
     };
 
+    // Lee el archivo como un array de bytes
     reader.readAsArrayBuffer(file);
 });
